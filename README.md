@@ -3,16 +3,18 @@ Two genomics pipelines were created that both culminated in the calling of varia
 - i) because many bioinformatics algorithms are time-consuming to run, programs were run in parallel across a maximum of 16 cores to expedite run time
 - ii) because many of the intermediate files are large (e.g. mpileup files are ~ 0.5 MB), the 1 terabyte of storage space made file size a non-issue
 
-With the aid of project-specific virtual environments, the following genomics pipelines were creatd:
+With the aid of project-specific virtual environments, the following genomics pipelines were created:
 
-## Pipeline #1 (*E. coli*): Genome Assembly to Variant-Calling
+## Pipeline #1: *E. coli* Genome Assembly to Variant-Calling
 
 **Purpose:** An exploratory analysis to identify the different types of genomic variants present in an [*E. coli* genome](https://www.ncbi.nlm.nih.gov/sra/?term=SRR8224895).
 
 **Pipeline #1 Workflow**
+
 ![Genome Assembly](plots/genome-assembly-workflow.png)
 
 Software | Usage
+--- | ---
 SRA Toolkit | creates two FASTQ files of paired-end reads
 FastQC | assesses raw reads for sequencing errors
 Trimmomatic | trims reads to create four files of paired/unpaired and FWD/REV reads
@@ -24,14 +26,15 @@ bcftools | left-aligns indels to improve annotation accuracy
 SnpEff | annotates variants from VarScan2
 DELLY | calls variants for genomic rearrangements (e.g. structural variants)
 
-## Pipeline #2 (*S. aureus*): Genome Annotation to Variant-Calling
+## Pipeline #2: *S. aureus* Genome Annotation to Variant-Calling
 
 **Purpose:** An exploratory analysis to identify genomic variants only in a drug treated *S. aureus* strain (FS), and not in an untreated, control strain (NC). Both [FS and NC strains](https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA480363) are methicillin-resistant and therefore qualify as MRSA.
 
 **Pipeline #2 Workflow**
-![Genome Annotation](plots/genome-annotation-workflow.png)
+![Genome Annotation](plots/genome-annotation-FS-vs-NC.png)
 
 Software | Usage
+--- | ---
 Prokka | finds genes with prodigal and annotates gene function *de novo* (NC only)
 RATT | finds and annotates gene function from a reference genome (NC to FS)
 biodiff | calls FS variants relative to NC genome
